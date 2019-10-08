@@ -1,0 +1,48 @@
+<div class="navbar">
+
+<span id="online-status">Status <b>...</b></span>
+
+<div class="dropdown">
+<button class="dropbtn"><span id="detection-status">Detection <b>...</b></span></button>
+<div class="dropdown-content">
+<a href="#" onclick="detection_on();">On</a>
+<a href="#" onclick="detection_off();">Off</a>
+</div>
+</div>
+
+<div class="dropdown">
+<button class="dropbtn"><span id="display-count-status">Cameras <b>...</b></span></button>
+<div class="dropdown-content">
+<a href="#" onclick="display_cam(0);">Living Room</a>
+<a href="#" onclick="display_cam(1);">Kitchen</a>
+
+</div>
+</div>
+
+<div class="dropdown">
+<button class="dropbtn"><span id="width-status">Width <b>...</b></span></button>
+<div class="dropdown-content">
+<input id="width-slider" type="range" min="200" max="900" value="600">
+</div>
+</div>
+
+<div class="dropdown">
+<button class="dropbtn"><span id="fps-status">FPS <b>...</b></span></button>
+<div class="dropdown-content">
+<a href="#" onclick="change_fps(1);">1</a>
+<a href="#" onclick="change_fps(5);">5</a>
+<a href="#" onclick="change_fps(10);">10</a>
+<a href="#" onclick="change_fps(15);">15</a>
+<a href="#" onclick="change_fps(20);">20</a>
+</div>
+</div>
+
+</div>
+
+<div id="cameras">
+</div>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="jquery.min.js"></script>
+<script src="camera_functions.js"></script>

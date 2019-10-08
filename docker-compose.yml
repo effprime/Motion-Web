@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+
+  motion:
+    container_name: motion
+    build: ./motion/
+    ports:
+      - "8080:8080"
+      - "8081"
+      - "8082"
+    volumes:
+      - ${footage_dir}:/etc/motion/footage
+    restart: always
+
+  nginx:
+    container_name: nginx
+    build: ./nginx/
+    ports:
+      - "80:80"
+    restart: always
+
+  statuskeeper:
+    container_name: status_keeper
+    build: ./statuskeeper/
+    volumes:
+      - ./statuskeeper/code:/status
+    command: "python3 /status/main.py ${camera_number} ${api_url}"
+    restart: always
