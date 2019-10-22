@@ -4,6 +4,7 @@ body {
     color: white;
 }
 
+
 .camera-view {
     border-style: solid;
     border-width: 0px;
@@ -11,10 +12,12 @@ body {
     height: auto;
 }
 
+
 .navbar {
     overflow: hidden;
     background-color: #003366;
 }
+
 
 .navbar span, input {
     float: left;
@@ -25,10 +28,12 @@ body {
     color: white;
 }
 
+
 .dropdown {
     float: left;
     overflow: hidden;
 }
+
 
 .dropdown .dropbtn {
     font-size: 16px;    
@@ -38,9 +43,11 @@ body {
     margin: 0;
 }
 
+
 .navbar a:hover, .dropdown:hover .dropbtn {
     background-color: #001a33;
 }
+
 
 .dropdown-content {
     display: none;
@@ -48,6 +55,7 @@ body {
     background-color: #003366;
     min-width: 160px;
 }
+
 
 .dropdown-content a {
     float: none;
@@ -59,9 +67,11 @@ body {
     background-color: #003366; 
 }
 
+
 .dropdown-content a:hover {
     background-color: #001a33;
 }
+
 
 .dropdown:hover .dropdown-content {
     display: block;
