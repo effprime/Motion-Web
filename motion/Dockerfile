@@ -1,10 +1,14 @@
 FROM ubuntu:bionic
 
-RUN apt update -y && apt install -y \
+ARG IP_LIST
+RUN echo $IP_LIST
+
+RUN apt update -y \
+&& apt install -y \
 motion
 
-COPY ./conf/ /etc/motion/
-RUN mkdir /scripts
-COPY ./scripts/ /scripts/
+COPY scripts/ /scripts
 
-CMD bash /scripts/configure.sh; tail -f /var/log/motion/motion.log
+RUN /scripts/configure.sh $IP_LIST
+
+CMD motion && tail -f /var/log/motion/motion.log

@@ -4,4 +4,4 @@ import sys
 
 from statuskeeper import StatusKeeper
 
-StatusKeeper(sys.argv[1], sys.argv[2])
+StatusKeeper(sys.argv[1], sys.argv[2], sys.argv[3])

@@ -1,10 +1,17 @@
-var camera_n = 2;
+var camera_n = CAMERA_NUMBER_VARIABLE;
 var display_status = []
 for (i = 0; i < camera_n; i++) {
     display_status[i] = false;
 }
-web_url = ""
-api_url = ""
+web_url = "URL_VARIABLE"
+api_port = "API_PORT_VARIABLE"
+api_url = web_url + ":" + api_port
+for (i = 0; i < camera_n; i++) {
+    camera = i + 1
+    html = '<a href="#" onclick="display_cam(' + i + ');">' + camera + '</a>'
+    document.getElementById("camera-links").innerHTML += html
+}
+
 update();
 update_fps_status();
 update_cam_count();

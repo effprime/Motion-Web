@@ -17,18 +17,19 @@ class StatusKeeper:
     """The object for performing detection status keeping.
     """
 
-    def __init__(self, cameras, api_url):
+    def __init__(self, cameras, api_url, api_port):
         """Initializes the StatusKeeper daemon.
 
         args:
             cameras (int): The number of active cameras in Motion.
             api_url (str): The URL for accessing the Motion API.
+            api_port (int): The port for accessing the Motion API.
         """
         logging.getLogger().setLevel(logging.INFO)
         logging.info("Starting status keeping with %s cameras", cameras)
         self.status = {}
         self.cameras = [str(i) for i in range(1, int(cameras) + 1)]
-        self.api_url = "http://%s" % (api_url)
+        self.api_url = "http://%s:%s" % (api_url, api_port)
         self.run()
 
     @staticmethod
@@ -42,28 +43,6 @@ class StatusKeeper:
         if info == "active":
             return "start"
         return info
-
-    def initialize_status(self):
-        """Creates the status attribute with null entries.
-        """
-        for cam in self.cameras:
-            self.status[cam] = None
-        self.set_status_timestamp()
-
-    def set_status_timestamp(self):
-        """Adds a timestamp entry to the status attribute.
-        """
-        self.status["time"] = str(datetime.datetime.now())
-
-    @staticmethod
-    def wait(time_):
-        """Wraps the sleep function with logging.
-
-        args:
-            time (int): The amount of seconds to wait.
-        """
-        logging.info("Sleeping for %s seconds", time_)
-        time.sleep(time_)
 
     def get_status_from_api(self):
         """Updates status attribute from API responses.
@@ -91,6 +70,13 @@ class StatusKeeper:
         else:
             logging.info("JSON file not found -- new file will be created")
 
+    def initialize_status(self):
+        """Creates the status attribute with null entries.
+        """
+        for cam in self.cameras:
+            self.status[cam] = None
+        self.set_status_timestamp()
+
     def log_status_to_json(self):
         """Saves the status attribute to local JSON file.
         """
@@ -109,6 +95,11 @@ class StatusKeeper:
             else:
                 logging.error("Invalid status for Camera %s", cam)
 
+    def set_status_timestamp(self):
+        """Adds a timestamp entry to the status attribute.
+        """
+        self.status["time"] = str(datetime.datetime.now())
+
     def run(self):
         """Runs startup functions and loops through get/save functions.
         """
@@ -120,3 +111,13 @@ class StatusKeeper:
             self.get_status_from_api()
             self.log_status_to_json()
             StatusKeeper.wait(LOOP_TIME)
+
+    @staticmethod
+    def wait(time_):
+        """Wraps the sleep function with logging.
+
+        args:
+            time (int): The amount of seconds to wait.
+        """
+        logging.info("Sleeping for %s seconds", time_)
+        time.sleep(time_)
