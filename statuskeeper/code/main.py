@@ -1,4 +1,7 @@
-from statuskeeper import StatusKeeper
+"""Starts the status keeping daemon.
+"""
 import sys
 
-keeper = StatusKeeper(sys.argv[1], sys.argv[2])
+from statuskeeper import StatusKeeper
+
+StatusKeeper(sys.argv[1], sys.argv[2])

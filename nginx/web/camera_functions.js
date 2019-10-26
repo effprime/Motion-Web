@@ -3,33 +3,32 @@ var display_status = []
 for (i = 0; i < camera_n; i++) {
     display_status[i] = false;
 }
-
 web_url = ""
 api_url = ""
-
 update();
 update_fps_status();
 update_cam_count();
 update_width_text();
-
 setInterval(function(){
     update();
 }, 5000);
-
 setInterval(function(){
     set_width();
 }, 1000);
+
 
 function update() {
     document.getElementById("online-status").innerHTML = get_online_status();
     document.getElementById("detection-status").innerHTML = get_detection_status();
 }
 
+
 function update_width_text() {
     t = document.getElementById("width-slider").value;
     document.getElementById("width-status").innerHTML = "Width <b>" + t + "</b>";
     return t
 }
+
 
 function set_width() {
     w = update_width_text();
@@ -40,14 +39,12 @@ function set_width() {
     }
 }
 
+
 function get_online_status() {
     var cameras_online = 0;
     var cameras_offline = 0;
-
     for (i = 1; i < camera_n+1; i++) {
-        //set link to current camera
         link = "http://" + api_url  + "/" + i + "/detection/connection"
-        //http request to link
         $.ajax({
             url: link,
             async: false,
@@ -61,8 +58,6 @@ function get_online_status() {
             }
         });
     }
-
-    // now camera status is available
     if (cameras_online == camera_n) {
         status = "Status <b>ONLINE</b>";
     } else if (cameras_offline == camera_n) {
@@ -73,14 +68,12 @@ function get_online_status() {
     return status
 }
 
+
 function get_detection_status() {
     var cameras_on = 0;
     var cameras_off = 0;
-
     for (i = 1; i < camera_n+1; i++) {
-        //set link to current camera
         link = "http://" + api_url  + "/" + i + "/detection/status"
-        //http request to link
         $.ajax({
             url: link,
             async: false,
@@ -94,8 +87,6 @@ function get_detection_status() {
             }
         });
 }
-
-    // now camera status is available
     if (cameras_on == camera_n) {
         status = "Detection <b>ON</b>";
     } else if (cameras_off == camera_n) {
@@ -106,16 +97,14 @@ function get_detection_status() {
     return status;
 }
 
+
 function detection_on() {
-    // get current detection status
     status = get_detection_status()
     if (status.includes("ON")) {
         alert("Detection is already on.");
     } else {
         for (var i = 1; i < camera_n+1; i++) {
-            //set link to current camera
             link = "http://" + api_url  + "/" + i + "/detection/start";
-                //http request to link
                 $.ajax({
                     url: link,
                     async: false,
@@ -128,12 +117,10 @@ function detection_on() {
         }
 }
 
+
 function detection_off() {
-    // forces shutdown of all cameras
     for (var i = 1; i < camera_n+1; i++) {
-        //set link to current camera
         link = "http://" + api_url  + "/" + i + "/detection/pause";
-            //http request to link
             $.ajax({
                 url: link,
                 async: false,
@@ -144,6 +131,7 @@ function detection_off() {
         });
     }
 }
+
 
 function display_cam(n) {
     if (display_status[n] == false) {
@@ -159,17 +147,17 @@ function display_cam(n) {
     update_cam_count();
 }
 
+
 function update_cam_count() {
     x = display_status.filter(v => v).length;
     document.getElementById("display-count-status").innerHTML = "Cameras <b>" + x + "</b>";
 }
 
+
 function get_fps() {
     z = [];
     for (var i = 1; i < camera_n+1; i++) {
-        //set link to current camera
         link = "http://" + api_url  + "/" + i + "/config/get?query=stream_maxrate"
-            //http request to link
             $.ajax({
                 url: link,
                 async: false,
@@ -186,6 +174,7 @@ function get_fps() {
     }
 }
 
+
 function update_fps_status() {
     fps = get_fps();
     if (fps == -1) {
@@ -196,11 +185,10 @@ function update_fps_status() {
     document.getElementById("fps-status").innerHTML = msg
 }
 
+
 function change_fps(fps) {
     for (var i = 1; i < camera_n+1; i++) {
-        //set link to current camera
         link = "http://" + api_url  + "/" + i + "/config/set?stream_maxrate=" + fps;
-            //http request to link
             $.ajax({
                 url: link,
                 async: false,
