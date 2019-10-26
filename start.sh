@@ -15,6 +15,12 @@ function bringdown {
     docker rm -f status_keeper
 }
 
+function removeimages {
+    docker image rm motion-web_motion
+    docker image rm motion-web_nginx
+    docker image rm motion-web_statuskeeper
+}
+
 function addenv {
     echo $1 >> $ENVFILE
 }
@@ -44,9 +50,7 @@ echo ""
 message "Bringing down pre-existing containers"
 bringdown 2>/dev/null
 message "Deleting old images"
-docker image rm motion-web_motion 2>/dev/null
-docker image rm motion-web_nginx 2>/dev/null
-docker image rm motion-web_statuskeeper 2>/dev/null
+removeimages 2>/dev/null
 
 read -p "OS path for saved Motion files: " OSPATH
 
