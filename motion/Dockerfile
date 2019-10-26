@@ -1,7 +1,6 @@
 FROM ubuntu:bionic
 
 ARG IP_LIST
-RUN echo $IP_LIST
 
 RUN apt update -y \
 && apt install -y \
