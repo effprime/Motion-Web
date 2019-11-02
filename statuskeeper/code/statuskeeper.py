@@ -8,9 +8,9 @@ import time
 
 import requests
 
-LOOP_TIME = 30
-INITIAL_WAIT_TIME = 5
-JSON_FILE = "status.json"
+from settings import LOOP_TIME
+from settings import INITIAL_WAIT_TIME
+from settings import JSON_FILE
 
 
 class StatusKeeper:
