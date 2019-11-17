@@ -1,5 +1,5 @@
 # Motion-Web
-Provides a web interface for accessing and controlling cameras using the Linux software `Motion`
+Web interface for accessing and controlling cameras using the Linux software `Motion`
 
 **Setup**
 * Clone this repo to a server that can communicate with RTSP cameras
