@@ -1,5 +1,7 @@
 FROM python:3.6-alpine
 
-RUN python3 -m pip install requests
+# Packages layer
+RUN python3 -m pip install --no-cache-dir requests
 
+# Workdir layer
 WORKDIR /status
