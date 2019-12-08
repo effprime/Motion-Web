@@ -1,11 +1,17 @@
 FROM nginx:latest
 
+# Args layer
 ARG CAMERA_NUMBER
 ARG MOTION_URL
 ARG API_PORT
 
-ADD conf/default.conf /etc/nginx/conf.d/
+# Installation layers
+COPY conf/ /etc/nginx/conf.d/
 COPY web/ /web
-COPY scripts/ /scripts
 
-RUN bash /scripts/configure.sh $MOTION_URL $API_PORT $CAMERA_NUMBER
+# Configuration layers
+RUN sed -i "s/URL_VARIABLE/$MOTION_URL/g" /etc/nginx/conf.d/default.conf && \
+    sed -i "s/API_PORT_VARIABLE/$API_PORT/g" /etc/nginx/conf.d/default.conf && \
+    sed -i "s/URL_VARIABLE/$MOTION_URL/g" /web/camera_functions.js && \
+    sed -i "s/API_PORT_VARIABLE/$API_PORT/g" /web/camera_functions.js && \
+    sed -i "s/CAMERA_NUMBER_VARIABLE/$CAMERA_NUMBER/g" /web/camera_functions.js
